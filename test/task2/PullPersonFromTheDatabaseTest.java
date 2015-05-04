@@ -9,11 +9,11 @@ import org.junit.Test;
 /**
  * Created by Silvia Petrova(silviqpetrova1992@gmail.com)on 4/30/15.
  */
-public class PullFromTheDatabaseTest {
+public class PullPersonFromTheDatabaseTest {
   @Rule
   public JUnitRuleMockery context = new JUnitRuleMockery();
   @Mock
-  CustomDatabase database;
+  PersonRepository database;
   @Mock
   Validator validator;
 
@@ -30,8 +30,8 @@ public class PullFromTheDatabaseTest {
 
       }
     });
-    DatabaseStoring databaseStoring = new DatabaseStoring(database, validator);
-    databaseStoring.pull(person1.name);
+    DataStore dataStore = new DataStore(database, validator);
+    dataStore.pull(person1.name);
   }
 
   @Test(expected =IllegalArgumentException.class)
@@ -45,8 +45,8 @@ public class PullFromTheDatabaseTest {
         never(validator).validate(person1.age);
       }
     });
-    DatabaseStoring databaseStoring = new DatabaseStoring(database, validator);
-    databaseStoring.pull(person1.name);
+    DataStore dataStore = new DataStore(database, validator);
+    dataStore.pull(person1.name);
   }
   @Test(expected = IllegalArgumentException.class)
   public void thePersonIsBelow18() {
@@ -61,7 +61,7 @@ public class PullFromTheDatabaseTest {
 
       }
     });
-    DatabaseStoring databaseStoring = new DatabaseStoring(database, validator);
-    databaseStoring.pull(person1.name);
+    DataStore dataStore = new DataStore(database, validator);
+    dataStore.pull(person1.name);
   }
 }

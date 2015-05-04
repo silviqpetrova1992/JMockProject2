@@ -8,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Silvia Petrova(silviqpetrova1992@gmail.com)on 4/30/15.
  */
-public class ValidateForPullTest {
-  private ValidatorForPull validator=new ValidatorForPull();
+public class PullValidationTest {
+  private ValidatorImp validator=new ValidatorImp(18,100);
   @Test
   public void happyPath() {
     assertTrue(validator.validate(new Person("Zuz", "43").age));

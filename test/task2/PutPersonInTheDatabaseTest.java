@@ -6,14 +6,16 @@ import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created by Silvia Petrova(silviqpetrova1992@gmail.com)on 4/30/15.
  */
-public class PutInTheDatabaseTest {
+public class PutPersonInTheDatabaseTest {
   @Rule
   public JUnitRuleMockery context = new JUnitRuleMockery();
   @Mock
-  CustomDatabase database;
+  PersonRepository database;
   @Mock
   Validator validator;
 
@@ -25,14 +27,15 @@ public class PutInTheDatabaseTest {
       {
         oneOf(validator).validate(person1.age);
         will(returnValue(true));
-       exactly(1).of(database).put(person1);
+        exactly(1).of(database).put(person1);
       }
     });
-    DatabaseStoring databaseStoring = new DatabaseStoring(database, validator);
-    databaseStoring.put(person1);
+    DataStore dataStore = new DataStore(database, validator);
+    dataStore.put(person1);
   }
+
   @Test
-  public void illigalAges() {
+  public void illegalAges() {
     final Person person1 = new Person("Pesho", "9");
 
     context.checking(new Expectations() {
@@ -42,7 +45,9 @@ public class PutInTheDatabaseTest {
         never(database).put(person1);
       }
     });
-    DatabaseStoring databaseStoring = new DatabaseStoring(database, validator);
-    databaseStoring.put(person1);
+    DataStore dataStore = new DataStore(database, validator);
+    dataStore.put(person1);
   }
+
+
 }

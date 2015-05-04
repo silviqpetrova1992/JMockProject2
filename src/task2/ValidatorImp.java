@@ -1,20 +1,28 @@
 package task2;
 
-import task1.*;
-
 /**
  * Created by Silvia Petrova(silviqpetrova1992@gmail.com)on 4/30/15.
  */
-public class ValidatorForPut implements Validator {
+public class ValidatorImp implements Validator {
+
+  private final int from;
+  private final int to;
+
+  public ValidatorImp(int from, int to) {
+
+    this.from = from;
+    this.to = to;
+  }
+
   @Override
   public boolean validate(String age) {
     int intAge;
     try{
-    intAge=Integer.parseInt(age);
+      intAge=Integer.parseInt(age);
     }catch(Exception e){
       return false;
     }
-    if(intAge<=10||intAge>=100){
+    if (intAge < from||intAge>to) {
       return false;
     }
     return true;
